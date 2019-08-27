@@ -1,0 +1,8 @@
+{
+  "ethereumPrivateKey": "65UYIKJBJVCGFVABUYIUOFLNKJIOHUGQJEG3F",
+  "requireCryptographicAuthorization": false,
+  "allowedSecp256k1PublicKeysToCallAPI": ["04..."],
+  "infuraProjectID": "kjb",
+  "contractAddress": "0x....",
+  "network": "kovan"
+}
