@@ -18,8 +18,8 @@
         "type": "bytes32"
       },
       {
-        "name": "tipMetaHash",
-        "type": "bytes32"
+        "name": "tipMetaSha256Hash",
+        "type": "bytes"
       },
       {
         "name": "isValid",
@@ -69,7 +69,7 @@
       {
         "indexed": true,
         "name": "recipients",
-        "type": "uint8[]"
+        "type": "bytes32[]"
       }
     ],
     "name": "TipPublished",
@@ -109,12 +109,12 @@
         "type": "bytes32"
       },
       {
-        "name": "_tipMetaHash",
-        "type": "bytes32"
+        "name": "_tipMetaSha256Hash",
+        "type": "bytes"
       },
       {
         "name": "_recipients",
-        "type": "uint8[]"
+        "type": "bytes32[]"
       }
     ],
     "name": "publishTip",
@@ -176,11 +176,11 @@
       },
       {
         "name": "",
-        "type": "bytes32"
+        "type": "bytes"
       },
       {
         "name": "",
-        "type": "uint8[]"
+        "type": "bytes32[]"
       },
       {
         "name": "",

@@ -1,5 +1,5 @@
 {
-  "ethereumPrivateKey": "65UYIKJBJVCGFVABUYIUOFLNKJIOHUGQJEG3F",
+  "ethereumPrivateKey": "0x329aef...",
   "requireCryptographicAuthorization": false,
   "allowedSecp256k1PublicKeysToCallAPI": ["04..."],
   "infuraProjectID": "kjb",
