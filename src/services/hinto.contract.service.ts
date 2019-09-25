@@ -99,6 +99,46 @@ export class HintoContractService {
     return eventValues.tipId;
   }
 
+  async approvePublisher(publisher: string) {
+    const isAddressValid = Web3.utils.isAddress(publisher);
+
+    if (!isAddressValid) {
+      throw new Error('Invalid ethereum address has been given');
+    }
+
+    const methodCall = this.contract.methods.approvePublisher(publisher);
+
+    const encodedABI = methodCall.encodeABI();
+
+    const gasPrice = await this.web3.eth.getGasPrice();
+    const gasEstimate = await methodCall.estimateGas({
+      from: this.wallet.address,
+      to: this.contract.options.address,
+    });
+
+    const tx = {
+      data: encodedABI,
+      from: this.wallet.address,
+      to: this.contract.options.address,
+      gasPrice: gasPrice,
+      gasLimit: gasEstimate,
+    };
+
+    const signedTx = await this.wallet.signTransaction(tx);
+
+    let txReceipt: TransactionReceipt;
+
+    try {
+      txReceipt = await this.web3.eth.sendSignedTransaction(
+        signedTx.rawTransaction,
+      );
+    } catch (err) {
+      throw new Error(err.message);
+    }
+
+    // const eventValues = await this.processEvents(txReceipt, 'ApprovePublisher');
+  }
+
   private async processEvents(
     txReceipt: TransactionReceipt,
     eventName: string,

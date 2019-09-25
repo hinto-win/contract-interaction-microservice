@@ -11,6 +11,7 @@ import {
   AuthorizationError,
   PayloadError,
 } from './tips.dros';
+import { PublishTipHeaders } from './tips.headers';
 
 @ApiUseTags('tips')
 @Controller('tips')
@@ -38,23 +39,22 @@ export class TipsController {
   @ApiResponse({ status: 401, type: AuthorizationError })
   @ApiResponse({ status: 400, type: AuthorizationError })
   async publishTip(
-    @Headers('caller') caller: string,
-    @Headers('signature') signature: string,
+    @Headers() headers: PublishTipHeaders,
     @Body() publishTipDto: PublishTipDto,
   ) {
     if (this.configService.config.requireCryptographicAuthorization) {
       if (
         !lodash.includes(
           this.configService.config.allowedSecp256k1PublicKeysToCallAPI,
-          caller,
+          headers.caller,
         )
       ) {
         return new AuthorizationError('Invalid caller');
       }
       const isSignatureValid = this.cryptographyService.isSignatureValid(
-        caller,
+        headers.caller,
         publishTipDto.tipMetaHash,
-        signature,
+        headers.signature,
       );
 
       if (!isSignatureValid) {
@@ -70,11 +70,17 @@ export class TipsController {
       return new PayloadError('Invalid SHA256 hash');
     }
 
-    const tipId = await this.hintoContractService.publishTip(
-      publishTipDto.tipCode,
-      publishTipDto.tipMetaHash,
-      publishTipDto.recipients,
-    );
+    let tipId;
+
+    try {
+      tipId = await this.hintoContractService.publishTip(
+        publishTipDto.tipCode,
+        publishTipDto.tipMetaHash,
+        publishTipDto.recipients,
+      );
+    } catch (err) {
+      return new PayloadError(err.message);
+    }
 
     return { error: false, tipId };
   }

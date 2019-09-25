@@ -77,6 +77,7 @@ tests/baselines/reference/dt
 .failed-tests
 ./.env
 config.json
+.env
 TEST-results.xml
 package-lock.json
 pgdata/
