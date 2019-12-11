@@ -21,16 +21,15 @@ export class TipsController {
     private readonly cryptographyService: CryptographyService,
     private readonly hintoContractService: HintoContractService,
   ) {
-    hintoContractService.initializeProvider(
-      configService.config.network,
-      configService.config.infuraProjectID,
-    );
-    hintoContractService.initializeWallet(
-      configService.config.ethereumPrivateKey,
-    );
-
-    hintoContractService.initializeContract(
+    const providerUrl =
+      'https://' +
+      configService.config.network +
+      '.infura.io/v3/' +
+      configService.config.infuraProjectID;
+    hintoContractService.initialize(
+      providerUrl,
       configService.config.contractAddress,
+      configService.config.ethereumPrivateKey,
     );
   }
 
@@ -64,10 +63,6 @@ export class TipsController {
 
     if (publishTipDto.tipCode.length > 32) {
       return new PayloadError('Tip code to long');
-    }
-
-    if (publishTipDto.tipMetaHash.length != 64) {
-      return new PayloadError('Invalid SHA256 hash');
     }
 
     let tipId;

@@ -1,5 +1,5 @@
 import { ApiModelProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsHexadecimal } from 'class-validator';
+import { IsNotEmpty } from 'class-validator';
 
 export class PublishTipDto {
   @ApiModelProperty({ example: 'PREMLEA-JUVMIL-01032019' })
@@ -7,10 +7,10 @@ export class PublishTipDto {
   readonly tipCode: string;
 
   @ApiModelProperty({
-    example: '0aa4cc8991da052f691459813dc790ba13a9b9d1d2dcb39e209d444997489dae',
+    example:
+      '0x1ea2f89d934cb4a2af0b486736609cf9cb4bdafdc6e946e79aecb02b9d9dceb4',
   })
   @IsNotEmpty()
-  @IsHexadecimal()
   readonly tipMetaHash: string;
 
   @ApiModelProperty({
