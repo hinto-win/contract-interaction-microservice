@@ -29,7 +29,6 @@ export class HintoContractService {
       );
       return tipId;
     } catch (err) {
-      console.log(err);
       throw err;
     }
   }
