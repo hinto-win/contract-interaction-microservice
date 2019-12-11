@@ -66,18 +66,21 @@ export class TipsController {
     }
 
     let tipId;
+    let txHash;
 
     try {
-      tipId = await this.hintoContractService.publishTip(
+      const tip = await this.hintoContractService.publishTip(
         publishTipDto.tipCode,
         publishTipDto.tipMetaHash,
         publishTipDto.recipients,
       );
+      tipId = tip.tipId;
+      txHash = tip.txHash;
     } catch (err) {
       return new PayloadError(err.message);
     }
 
-    return { error: false, tipId };
+    return { error: false, tipId, txHash };
   }
 
   @ApiExcludeEndpoint()

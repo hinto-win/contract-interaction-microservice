@@ -20,14 +20,14 @@ export class HintoContractService {
     tipCode: string,
     tipMetaHash: string,
     restrictedToRecipients: Array<'Basic' | 'Premium' | 'VIP'>,
-  ): Promise<number> {
+  ): Promise<{ tipId: number; txHash: string }> {
     try {
-      const tipId = await this.hintoSdk.publishTip(
+      const tip = await this.hintoSdk.publishTip(
         tipCode,
         tipMetaHash,
         restrictedToRecipients,
       );
-      return tipId;
+      return tip;
     } catch (err) {
       throw err;
     }
