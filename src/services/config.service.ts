@@ -2,12 +2,11 @@ import { readFileSync } from 'fs';
 
 export class ConfigService {
   public config: {
-    infuraProjectID: string;
     ethereumPrivateKey: string;
     requireCryptographicAuthorization: boolean;
     allowedSecp256k1PublicKeysToCallAPI: string[];
-    network: 'mainnet' | 'rinkeby' | 'kovan';
     contractAddress: string;
+    ethereumProviderUrl: string;
   };
   constructor() {
     this.config = JSON.parse(

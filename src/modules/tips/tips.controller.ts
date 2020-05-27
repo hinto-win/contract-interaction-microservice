@@ -21,13 +21,8 @@ export class TipsController {
     private readonly cryptographyService: CryptographyService,
     private readonly hintoContractService: HintoContractService,
   ) {
-    const providerUrl =
-      'https://' +
-      configService.config.network +
-      '.infura.io/v3/' +
-      configService.config.infuraProjectID;
     hintoContractService.initialize(
-      providerUrl,
+      configService.config.ethereumProviderUrl,
       configService.config.contractAddress,
       configService.config.ethereumPrivateKey,
     );
